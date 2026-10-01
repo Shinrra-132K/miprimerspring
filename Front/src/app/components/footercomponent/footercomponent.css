@@ -1,12 +1,24 @@
 .footer {
   padding: 16px;
   text-align: center;
-  background: #fff;
-  border-top: 1px solid #e5e7eb;
+  background: #523F31;
 }
-
-.footer p {
+.titulo {
   margin: 0;
-  font-size: 0.85rem;
-  color: #6b7280;
+  font-size: 20px;
+  color: #E7DED0;
+  text-align: center;
+  font-family: editorial, sans-serif;
+}
+.subtitulo {
+  margin: 0;
+  font-size: 16px;
+  color: #E7DED0;
+  text-align: center;
+  font-family: editorial, sans-serif;
+}
+.monkey{
+  height: 150px;
+  width: 150px;
+  text-align: center;
 }

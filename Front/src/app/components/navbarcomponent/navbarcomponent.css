@@ -3,35 +3,41 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 24px;
-  background: #4f46e5;
-  color: #fff;
+  height: 80px;
+  background: #523F31;
+  color: #2D1E17;
 }
 
 .logo {
-  color: #fff;
-  font-weight: 700;
+  color: #F7F3EF;
+  font-weight: 100;
+  font-size: 40px;
   text-decoration: none;
+  font-family: "modern romance", sans-serif;
 }
 
 .links {
   display: flex;
   gap: 8px;
+  font-family: "editorial", sans-serif
 }
 
 .links a {
-  color: #e0e7ff;
+  color: #E5DFD1;
   text-decoration: none;
   padding: 6px 12px;
   border-radius: 6px;
+  font-family: "editorial", sans-serif
 }
 
 .links a:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: #E9D8CE;
+  color: #2D1E17;
 }
 
 .links a.activo {
-  background: #fff;
-  color: #4f46e5;
+  background: #E9D8CE;
+  color: #2D1E17;
   font-weight: 600;
 }
 

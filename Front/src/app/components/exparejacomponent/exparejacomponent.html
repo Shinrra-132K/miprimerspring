@@ -1,4 +1,4 @@
-<h1>Exparejas</h1>
+<h1>─ EXPAREJAS ─</h1>
 
 @if (mensaje) {
   <p class="mensaje" [class.error]="esError">{{ mensaje }}</p>
@@ -12,7 +12,7 @@
     <label>Motivo de separación <input name="motivoSeparacion" ngModel required placeholder="Ej: Distancia"></label>
     <div class="acciones">
       <button type="submit" [disabled]="f.invalid">Guardar</button>
-      <button type="button" class="secundario" (click)="f.resetForm()">Limpiar</button>
+      <button type="button" class="secundario" (click)="f.resetForm()">Borrar</button>
     </div>
   </form>
 </section>

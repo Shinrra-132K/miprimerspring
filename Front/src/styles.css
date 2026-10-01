@@ -1,2 +1,15 @@
-app-root { display: flex; flex-direction: column; min-height: 100vh; }
+app-root { display: flex; flex-direction: column; min-height: 100vh; background-color: #F9F3EC; }
 .contenedor { flex: 1 }
+
+@font-face {
+  font-family: "modern romance";
+  src: url("/Modern Romance.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "editorial";
+  src: url("/EditorialToday-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

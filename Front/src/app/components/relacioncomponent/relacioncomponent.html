@@ -1,4 +1,4 @@
-<h1>Relaciones</h1>
+<h1>─ RELACIONES ─</h1>
 
 @if (mensaje) {
   <p class="mensaje" [class.error]="esError">{{ mensaje }}</p>
@@ -11,7 +11,7 @@
     <label>Persona 2 <input name="nombrePersona2" ngModel required placeholder="Ej: Luis"></label>
     <div class="acciones">
       <button type="submit" [disabled]="f.invalid">Guardar</button>
-      <button type="button" class="secundario" (click)="f.resetForm()">Limpiar</button>
+      <button type="button" class="secundario" (click)="f.resetForm()">Borrar</button>
     </div>
   </form>
 </section>
