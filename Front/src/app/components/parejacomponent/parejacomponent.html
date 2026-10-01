@@ -1,0 +1,39 @@
+<h1>Parejas</h1>
+
+@if (mensaje) {
+  <p class="mensaje" [class.error]="esError">{{ mensaje }}</p>
+}
+
+<section class="card">
+  <h2>Nueva pareja</h2>
+  <form #f="ngForm" (ngSubmit)="guardar(f)">
+    <label>Nombre <input name="nombre" ngModel required placeholder="Ej: Ana"></label>
+    <label>Edad <input type="number" name="edad" ngModel required min="0" max="120" placeholder="Ej: 25"></label>
+    <label class="check"><input type="checkbox" name="existe" [ngModel]="true"> Existe</label>
+    <div class="acciones">
+      <button type="submit" [disabled]="f.invalid">Guardar</button>
+      <button type="button" class="secundario" (click)="f.resetForm({ existe: true })">Limpiar</button>
+    </div>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Parejas registradas ({{ parejas.length }})</h2>
+  @if (parejas.length === 0) {
+    <p class="vacio">Aún no hay parejas.</p>
+  } @else {
+    <table>
+      <thead><tr><th>Nombre</th><th>Edad</th><th>Existe</th><th></th></tr></thead>
+      <tbody>
+        @for (p of parejas; track p.id) {
+          <tr>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.edad }}</td>
+            <td>{{ p.existe ? 'Sí' : 'No' }}</td>
+            <td><button class="peligro" (click)="eliminar(p.id)">Eliminar</button></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

@@ -1,0 +1,38 @@
+<h1>Relaciones</h1>
+
+@if (mensaje) {
+  <p class="mensaje" [class.error]="esError">{{ mensaje }}</p>
+}
+
+<section class="card">
+  <h2>Nueva relación</h2>
+  <form #f="ngForm" (ngSubmit)="guardar(f)">
+    <label>Persona 1 <input name="nombrePersona1" ngModel required placeholder="Ej: Ana"></label>
+    <label>Persona 2 <input name="nombrePersona2" ngModel required placeholder="Ej: Luis"></label>
+    <div class="acciones">
+      <button type="submit" [disabled]="f.invalid">Guardar</button>
+      <button type="button" class="secundario" (click)="f.resetForm()">Limpiar</button>
+    </div>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Relaciones registradas ({{ relaciones.length }})</h2>
+  @if (relaciones.length === 0) {
+    <p class="vacio">Aún no hay relaciones.</p>
+  } @else {
+    <table>
+      <thead><tr><th>Persona 1</th><th>Persona 2</th><th>Motivo de separación</th><th></th></tr></thead>
+      <tbody>
+        @for (r of relaciones; track r.id) {
+          <tr>
+            <td>{{ r.nombrePersona1 }}</td>
+            <td>{{ r.nombrePersona2 }}</td>
+            <td><input #motivo placeholder="Obligatorio para eliminar"></td>
+            <td><button class="peligro" (click)="eliminar(r.id, motivo.value)">Eliminar</button></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

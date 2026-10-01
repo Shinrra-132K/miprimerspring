@@ -1,0 +1,39 @@
+<h1>Exparejas</h1>
+
+@if (mensaje) {
+  <p class="mensaje" [class.error]="esError">{{ mensaje }}</p>
+}
+
+<section class="card">
+  <h2>Nueva expareja</h2>
+  <form #f="ngForm" (ngSubmit)="guardar(f)">
+    <label>Nombre <input name="nombre" ngModel required placeholder="Ej: Luis"></label>
+    <label>Edad <input type="number" name="edad" ngModel required min="0" max="120" placeholder="Ej: 27"></label>
+    <label>Motivo de separación <input name="motivoSeparacion" ngModel required placeholder="Ej: Distancia"></label>
+    <div class="acciones">
+      <button type="submit" [disabled]="f.invalid">Guardar</button>
+      <button type="button" class="secundario" (click)="f.resetForm()">Limpiar</button>
+    </div>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Exparejas registradas ({{ exparejas.length }})</h2>
+  @if (exparejas.length === 0) {
+    <p class="vacio">Aún no hay exparejas.</p>
+  } @else {
+    <table>
+      <thead><tr><th>Nombre</th><th>Edad</th><th>Motivo</th><th></th></tr></thead>
+      <tbody>
+        @for (e of exparejas; track e.id) {
+          <tr>
+            <td>{{ e.nombre }}</td>
+            <td>{{ e.edad }}</td>
+            <td>{{ e.motivoSeparacion }}</td>
+            <td><button class="peligro" (click)="eliminar(e.id)">Eliminar</button></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>
