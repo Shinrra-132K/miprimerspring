@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-
-type ExPareja = { id: number; nombre: string; edad: number; motivoSeparacion: string };
+import { ExPareja, ExParejaService } from '../../services/exparejaservice';
 
 @Component({
   selector: 'app-exparejacomponent',
@@ -11,9 +10,8 @@ type ExPareja = { id: number; nombre: string; edad: number; motivoSeparacion: st
   styleUrl: './exparejacomponent.css',
 })
 export class Exparejacomponent implements OnInit {
-  private http = inject(HttpClient);
+  private exParejaService = inject(ExParejaService);
   private cdr = inject(ChangeDetectorRef);
-  private url = 'http://localhost:8080/exPareja';
 
   exparejas: ExPareja[] = [];
   mensaje = '';
@@ -35,7 +33,7 @@ export class Exparejacomponent implements OnInit {
   }
 
   cargar() {
-    this.http.get<ExPareja[]>(`${this.url}/mostrarTodo`).subscribe({
+    this.exParejaService.mostrarTodo().subscribe({
       next: (lista) => {
         this.exparejas = lista ?? [];
         this.cdr.markForCheck();
@@ -49,11 +47,7 @@ export class Exparejacomponent implements OnInit {
 
   guardar(f: NgForm) {
     const v = f.value;
-    const params = new HttpParams()
-      .set('nombre', v.nombre.trim())
-      .set('edad', v.edad)
-      .set('motivoSep', v.motivoSeparacion.trim());
-    this.http.post(`${this.url}/crear`, null, { params, responseType: 'text' }).subscribe({
+    this.exParejaService.crear(v.nombre.trim(), v.edad, v.motivoSeparacion.trim()).subscribe({
       next: (msg) => {
         f.resetForm();
         this.avisar(msg);
@@ -64,8 +58,7 @@ export class Exparejacomponent implements OnInit {
   }
 
   eliminar(id: number) {
-    const params = new HttpParams().set('id', id);
-    this.http.delete(`${this.url}/eliminarPorId`, { params, responseType: 'text' }).subscribe({
+    this.exParejaService.eliminarPorId(id).subscribe({
       next: () => {
         this.avisar('Expareja eliminada con exito');
         this.cargar();

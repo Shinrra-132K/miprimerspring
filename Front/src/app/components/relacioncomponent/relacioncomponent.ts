@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-
-type Relacion = { id: number; nombrePersona1: string; nombrePersona2: string };
+import { Relacion, RelacionService } from '../../services/relacionservice';
 
 @Component({
   selector: 'app-relacioncomponent',
@@ -11,9 +10,8 @@ type Relacion = { id: number; nombrePersona1: string; nombrePersona2: string };
   styleUrl: './relacioncomponent.css',
 })
 export class Relacioncomponent implements OnInit {
-  private http = inject(HttpClient);
+  private relacionService = inject(RelacionService);
   private cdr = inject(ChangeDetectorRef);
-  private url = 'http://localhost:8080/relacion';
 
   relaciones: Relacion[] = [];
   mensaje = '';
@@ -35,7 +33,7 @@ export class Relacioncomponent implements OnInit {
   }
 
   cargar() {
-    this.http.get<Relacion[]>(`${this.url}/mostrarTodo`).subscribe({
+    this.relacionService.mostrarTodo().subscribe({
       next: (lista) => {
         this.relaciones = lista ?? [];
         this.cdr.markForCheck();
@@ -49,11 +47,7 @@ export class Relacioncomponent implements OnInit {
 
   guardar(f: NgForm) {
     const v = f.value;
-    // El back recibe las dos personas como "nombre1" y "nombre2"
-    const params = new HttpParams()
-      .set('nombre1', v.nombrePersona1.trim())
-      .set('nombre2', v.nombrePersona2.trim());
-    this.http.post(`${this.url}/crear`, null, { params, responseType: 'text' }).subscribe({
+    this.relacionService.crear(v.nombrePersona1.trim(), v.nombrePersona2.trim()).subscribe({
       next: (msg) => {
         f.resetForm();
         this.avisar(msg);
@@ -68,8 +62,7 @@ export class Relacioncomponent implements OnInit {
       this.avisar('Debes indicar la razon de la separacion', true);
       return;
     }
-    const params = new HttpParams().set('id', id).set('motivoSeparacion', motivo.trim());
-    this.http.delete(`${this.url}/eliminarPorId`, { params, responseType: 'text' }).subscribe({
+    this.relacionService.eliminarPorId(id, motivo.trim()).subscribe({
       next: (msg) => {
         this.avisar(msg);
         this.cargar();

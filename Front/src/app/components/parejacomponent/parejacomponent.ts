@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-
-type Pareja = { id: number; nombre: string; edad: number; existe: boolean };
+import { Pareja, ParejaService } from '../../services/parejaservice';
 
 @Component({
   selector: 'app-parejacomponent',
@@ -11,9 +10,8 @@ type Pareja = { id: number; nombre: string; edad: number; existe: boolean };
   styleUrl: './parejacomponent.css',
 })
 export class Parejacomponent implements OnInit {
-  private http = inject(HttpClient);
+  private parejaService = inject(ParejaService);
   private cdr = inject(ChangeDetectorRef);
-  private url = 'http://localhost:8080/pareja';
 
   parejas: Pareja[] = [];
   mensaje = '';
@@ -35,7 +33,7 @@ export class Parejacomponent implements OnInit {
   }
 
   cargar() {
-    this.http.get<Pareja[]>(`${this.url}/mostrarTodo`).subscribe({
+    this.parejaService.mostrarTodo().subscribe({
       next: (lista) => {
         this.parejas = lista ?? [];
         this.cdr.markForCheck();
@@ -49,11 +47,7 @@ export class Parejacomponent implements OnInit {
 
   guardar(f: NgForm) {
     const v = f.value;
-    const params = new HttpParams()
-      .set('nombre', v.nombre.trim())
-      .set('edad', v.edad)
-      .set('existe', !!v.existe);
-    this.http.post(`${this.url}/crear`, null, { params, responseType: 'text' }).subscribe({
+    this.parejaService.crear(v.nombre.trim(), v.edad, !!v.existe).subscribe({
       next: (msg) => {
         f.resetForm({ existe: true });
         this.avisar(msg);
@@ -64,8 +58,7 @@ export class Parejacomponent implements OnInit {
   }
 
   eliminar(id: number) {
-    const params = new HttpParams().set('id', id);
-    this.http.delete(`${this.url}/eliminarPorId`, { params, responseType: 'text' }).subscribe({
+    this.parejaService.eliminarPorId(id).subscribe({
       next: () => {
         this.avisar('Pareja eliminada con exito');
         this.cargar();
