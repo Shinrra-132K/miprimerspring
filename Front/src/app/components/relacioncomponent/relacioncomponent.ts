@@ -35,7 +35,6 @@ export class Relacioncomponent implements OnInit {
   }
 
   cargar() {
-    // Si no hay datos el back responde 204 sin cuerpo, por eso el "?? []"
     this.http.get<Relacion[]>(`${this.url}/mostrarTodo`).subscribe({
       next: (lista) => {
         this.relaciones = lista ?? [];

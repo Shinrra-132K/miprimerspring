@@ -35,7 +35,6 @@ export class Exparejacomponent implements OnInit {
   }
 
   cargar() {
-    // Si no hay datos el back responde 204 sin cuerpo, por eso el "?? []"
     this.http.get<ExPareja[]>(`${this.url}/mostrarTodo`).subscribe({
       next: (lista) => {
         this.exparejas = lista ?? [];
@@ -50,7 +49,6 @@ export class Exparejacomponent implements OnInit {
 
   guardar(f: NgForm) {
     const v = f.value;
-    // El back recibe el motivo con el nombre "motivoSep"
     const params = new HttpParams()
       .set('nombre', v.nombre.trim())
       .set('edad', v.edad)
