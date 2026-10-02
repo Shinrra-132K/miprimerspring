@@ -19,6 +19,7 @@
 .links {
   display: flex;
   gap: 8px;
+  border-radius: 40px;
   font-family: "editorial", sans-serif
 }
 
@@ -26,19 +27,21 @@
   color: #E5DFD1;
   text-decoration: none;
   padding: 6px 12px;
-  border-radius: 6px;
+  border-radius: 40px;
   font-family: "editorial", sans-serif
 }
 
 .links a:hover {
   background: #E9D8CE;
   color: #2D1E17;
+  border-radius: 40px;
 }
 
 .links a.activo {
   background: #E9D8CE;
   color: #2D1E17;
   font-weight: 600;
+  border-radius: 40px;
 }
 
 @media (max-width: 560px) {

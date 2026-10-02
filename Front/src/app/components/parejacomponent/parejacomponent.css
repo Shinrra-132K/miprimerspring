@@ -8,12 +8,14 @@ h1 {
 
 .mensaje {
   padding: 10px 14px;
-  border-radius: 8px;
+  border-radius: 40px;
   background: #A4C893;
   color: #F1F6EE;
   text-align: center;
   font-family: "editorial", sans-serif;
   font-size: 15px;
+  width: 30%;
+  margin: 0 auto 16px;
 }
 
 .mensaje.error {
@@ -22,8 +24,9 @@ h1 {
   text-align: center;
   font-family: "editorial", sans-serif;
   font-size: 15px;
+  width: 30%;
+  margin:0 auto 16px;
 }
-
 .card {
   background: #D5C7B3;
   border: #D5C7B6 1px solid;
